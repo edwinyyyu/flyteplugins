@@ -109,7 +109,7 @@ func (p Plugin) Create(ctx context.Context, taskCtx webapi.TaskExecutionContextR
 		taskTemplate.GetContainer().Args = argTemplate
 	}
 
-	return &ResourceMetaWrapper{
+	return ResourceMetaWrapper{
 		OutputPrefix:      outputPrefix,
 		AgentResourceMeta: res.GetResourceMeta(),
 		Token:             "",
@@ -118,7 +118,7 @@ func (p Plugin) Create(ctx context.Context, taskCtx webapi.TaskExecutionContextR
 }
 
 func (p Plugin) Get(ctx context.Context, taskCtx webapi.GetContext) (latest webapi.Resource, err error) {
-	metadata := taskCtx.ResourceMeta().(*ResourceMetaWrapper)
+	metadata := taskCtx.ResourceMeta().(ResourceMetaWrapper)
 
 	agent, err := getFinalAgent(metadata.TaskType, p.cfg)
 	if err != nil {
